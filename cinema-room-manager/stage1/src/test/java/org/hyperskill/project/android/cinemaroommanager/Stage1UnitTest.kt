@@ -1,4 +1,4 @@
-package org.hyperskill.android.template.project
+package org.hyperskill.project.android.cinemaroommanager
 
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText

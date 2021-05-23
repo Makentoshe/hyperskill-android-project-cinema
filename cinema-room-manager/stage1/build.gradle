@@ -6,7 +6,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "org.hyperskill.android.template.project"
+        applicationId "org.hyperskill.project.android.cinemaroommanager"
         minSdkVersion 21
         // DO NOT CHANGE THIS VALUE
         // Because this version related with robolectic version too
