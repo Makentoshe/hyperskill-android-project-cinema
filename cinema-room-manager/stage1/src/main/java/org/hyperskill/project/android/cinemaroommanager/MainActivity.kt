@@ -16,15 +16,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        grid_layout.alignmentMode = GridLayout.ALIGN_BOUNDS
-        grid_layout.columnCount = seats
+        cinema_room_places.alignmentMode = GridLayout.ALIGN_BOUNDS
+        cinema_room_places.columnCount = seats
 
         val inflater = LayoutInflater.from(this)
         for (row in 0 until rows)  {
             for (seat in 0 until seats) {
-                val view = inflater.inflate(R.layout.item_grid_layout, grid_layout, false)
-                view.findViewById<TextView>(R.id.item_grid_layout_text).text = "${row + 1}.${seat + 1}"
-                grid_layout.addView(view)
+                val view = inflater.inflate(R.layout.item_grid_layout, cinema_room_places, false)
+                view.findViewById<TextView>(R.id.cinema_room_place_item_text).text = "${row + 1}.${seat + 1}"
+                cinema_room_places.addView(view)
             }
         }
     }

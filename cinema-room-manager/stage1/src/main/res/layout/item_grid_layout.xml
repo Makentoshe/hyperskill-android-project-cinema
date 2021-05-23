@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/item_grid_layout_text"
+            android:id="@+id/cinema_room_place_item_text"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:gravity="center"
