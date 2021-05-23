@@ -1,8 +1,12 @@
 package org.hyperskill.project.android.cinemaroommanager
 
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.GridLayout
 import android.widget.TextView
+import androidx.core.view.forEach
+import androidx.core.view.forEachIndexed
 import com.google.android.material.slider.Slider
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -17,43 +21,62 @@ class Stage1UnitTest {
     private val activityController = Robolectric.buildActivity(MainActivity::class.java)
 
     @Test
-    fun testShouldCheckEditTextExist() {
+    fun testShouldCheckScreenExist() {
+        val message = "does view with id \"cinema_room_screen_text\" placed in activity?"
+
         val activity = activityController.setup().get()
-        val editText = activity.findViewById<EditText>(R.id.edit_text)
-
-        val message = "does view with id \"edit_text\" placed in activity?"
-        assertNotNull(message, editText)
-
-        val message2 = "edit_text should have proper inputType attribute"
-        assertEquals(message2, editText.inputType, EditorInfo.TYPE_CLASS_NUMBER)
+        val screenTextView = activity.findViewById<TextView>(R.id.cinema_room_screen_text)
+        assertNotNull(message, screenTextView)
     }
 
     @Test
-    fun testShouldCheckSliderExist() {
+    fun testShouldCheckScreenText() {
+        val message = "does view with id \"cinema_room_screen_text\" contains a \"Screen\" text?"
+
         val activity = activityController.setup().get()
-        val slider = activity.findViewById<Slider>(R.id.slider)
-
-        val message = "does view with id \"slider\" placed in activity?"
-        assertNotNull(message, slider)
-
-        val message2 = "\"slider\" should have proper stepSize attribute"
-        assertEquals(message2, slider.stepSize, 1.0f)
-
-        val message3 = "\"slider\" should have proper valueFrom attribute"
-        assertEquals(message3, slider.valueFrom, 0.0f)
-
-        val message4 = "\"slider\" should have proper valueTo attribute"
-        assertEquals(message4, slider.valueTo, 100.0f)
-
-        val message5 = "\"slider\" should have proper initial value"
-        assertEquals(message5, 0f, slider.value)
+        val screenTextView = activity.findViewById<TextView>(R.id.cinema_room_screen_text)
+        assertEquals(message, "Screen", screenTextView.text)
     }
 
     @Test
-    fun testShouldCheckTextViewExist() {
-        val activity = activityController.setup().get()
+    fun testShouldCheckPlacesExist() {
+        val message = "does view with id \"cinema_room_places\" placed in activity?"
 
-        val message = "does view with id \"text_view\" placed in activity?"
-        assertNotNull(message, activity.findViewById<TextView>(R.id.text_view))
+        val activity = activityController.setup().get()
+        val placesGridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
+        assertNotNull(message, placesGridLayout)
     }
+
+    @Test
+    fun testShouldCheckPlacesColumnsCount() {
+        val message = "does view with id \"cinema_room_places\" contains a proper count of columns?"
+
+        val activity = activityController.setup().get()
+        val placesGridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
+        assertEquals(message, 8, placesGridLayout.columnCount)
+    }
+
+    @Test
+    fun testShouldCheckPlacesRowsCount() {
+        val message = "does view with id \"cinema_room_places\" contains a proper count of rows?"
+
+        val activity = activityController.setup().get()
+        val placesGridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
+        assertEquals(message, 7, placesGridLayout.rowCount)
+    }
+
+    @Test
+    fun testShouldCheckPlacesSeats() {
+        val message = "does view with id \"cinema_room_places\" contains a proper seats describe?"
+
+        val activity = activityController.setup().get()
+        val placesGridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
+        placesGridLayout.forEachIndexed { index, seat ->
+            val seatRow = index / 8 + 1
+            val seatColumn = index % 8 + 1
+            val seatText = seat.findViewById<TextView>(R.id.cinema_room_place_item_text).text
+            assertEquals(message, "${seatRow}.${seatColumn}", seatText)
+        }
+    }
+
 }
