@@ -42,6 +42,9 @@ Change the `content`. It is a list and should contain a single value: [a title o
 Change the `content` value. This value is a set of stages that you project contains. 
 You can set as much stages as you want. For this template there will be only 1 stage.
  
+ ### `lesson-remote-info.yaml` in your project
+ 
+ The `id` value is a task description id related to Stepik lesson.
  
  
 ### Defining stage specific files
