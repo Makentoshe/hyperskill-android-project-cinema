@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val intent = intent
         val duration = intent.getIntExtra("DURATION", 108)
         val rating = intent.getFloatExtra("RATING", 4.5f)
 
