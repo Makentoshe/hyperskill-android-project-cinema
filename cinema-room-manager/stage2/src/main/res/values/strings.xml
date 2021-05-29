@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Cinema Room Manager</string>
+    <string name="cinema_room_screen">Screen</string>
+    <string name="cinema_room_ticket_price">Estimated ticket price: %.2f$</string>
 </resources>

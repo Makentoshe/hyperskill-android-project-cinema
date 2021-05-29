@@ -16,6 +16,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val duration = intent.getIntExtra("DURATION", 108)
+        val rating = intent.getFloatExtra("RATING", 4.5f)
+
+        val movieDurationProfit = - (duration * duration / 90) + 2 * duration + 90
+        val baseTicketPrice = ((rating * movieDurationProfit) / (rows * seats))
+
+        cinema_room_ticket_price.text = getString(R.string.cinema_room_ticket_price, baseTicketPrice)
+
         cinema_room_places.alignmentMode = GridLayout.ALIGN_BOUNDS
         cinema_room_places.columnCount = seats
 
