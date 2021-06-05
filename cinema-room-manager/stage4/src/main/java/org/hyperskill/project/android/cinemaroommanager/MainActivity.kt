@@ -1,22 +1,18 @@
 package org.hyperskill.project.android.cinemaroommanager
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.GridLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_grid_layout.view.*
+import kotlin.math.round
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         val baseTicketPrice = ((rating * movieDurationProfit) / (rows * seats))
         val calculatedTicketCosts = getCalculatedTicketCosts(baseTicketPrice)
 
-        cinema_room_ticket_price.text = getString(R.string.cinema_room_ticket_price, baseTicketPrice)
+        cinema_room_ticket_price.text =
+            getString(R.string.cinema_room_ticket_price, baseTicketPrice)
 
         cinema_room_places.alignmentMode = GridLayout.ALIGN_BOUNDS
         cinema_room_places.columnCount = seats
@@ -46,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         for (row in 0 until rows) {
             for (seat in 0 until seats) {
                 val view = inflater.inflate(R.layout.item_grid_layout, cinema_room_places, false)
-                view.findViewById<TextView>(R.id.cinema_room_place_item_text).text = "${row + 1}.${seat + 1}"
+                view.findViewById<TextView>(R.id.cinema_room_place_item_text).text =
+                    "${row + 1}.${seat + 1}"
                 view.setOnClickListener {
                     if (purchasedTickets.contains(row to seat)) return@setOnClickListener
 
@@ -77,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     internal fun markSeatAsPurchased(row: Int, seat: Int) {
         purchasedTickets.add(row to seat)
         val view = cinema_room_places.getChildAt(row * cinema_room_places.columnCount + seat)
-        view.cinema_room_place_card.setBackgroundColor(Color.DKGRAY)
+        view.cinema_room_place_indicator.setBackgroundColor(Color.DKGRAY)
     }
 }
 
@@ -106,8 +104,8 @@ class CustomDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Buy a ticket")
-        builder.setMessage("Anus $cost")
+        builder.setTitle("Buy a ticket ${row + 1} row ${seat + 1} place")
+        builder.setMessage("Your ticket price is ${round(cost * 100) / 100}$")
         builder.setPositiveButton("Buy a ticket") { dialog, which ->
             (requireActivity() as MainActivity).markSeatAsPurchased(row, seat)
         }
