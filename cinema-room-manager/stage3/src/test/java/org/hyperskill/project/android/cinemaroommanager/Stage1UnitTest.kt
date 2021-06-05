@@ -1,13 +1,8 @@
 package org.hyperskill.project.android.cinemaroommanager
 
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.TextView
-import androidx.core.view.forEach
 import androidx.core.view.forEachIndexed
-import com.google.android.material.slider.Slider
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -15,6 +10,7 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 
+// Version 1.0
 @RunWith(RobolectricTestRunner::class)
 class Stage1UnitTest {
 

@@ -11,6 +11,7 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 
+// Version 1.0
 @RunWith(RobolectricTestRunner::class)
 class Stage2UnitTest {
 
