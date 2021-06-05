@@ -48,7 +48,6 @@ class Stage3UnitTest {
 
         val gridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
         gridLayout.getChildAt(row * gridLayout.columnCount + place).performClick()
-        println(row * gridLayout.columnCount + place)
 
         assertTrue(message, ShadowToast.showedToast("$price$"))
     }
