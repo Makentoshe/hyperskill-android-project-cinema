@@ -1,21 +1,29 @@
 package org.hyperskill.project.android.cinemaroommanager
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.GridLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_grid_layout.view.*
 
 class MainActivity : AppCompatActivity() {
 
     private val rows = 7
     private val seats = 8
+
+    private val purchasedTickets = HashSet<Pair<Int, Int>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +48,11 @@ class MainActivity : AppCompatActivity() {
                 val view = inflater.inflate(R.layout.item_grid_layout, cinema_room_places, false)
                 view.findViewById<TextView>(R.id.cinema_room_place_item_text).text = "${row + 1}.${seat + 1}"
                 view.setOnClickListener {
-                    CustomDialogFragment.show(supportFragmentManager, "Sas", calculatedTicketCosts[row])
-//                    val string = getString(R.string.cinema_room_ticket_price_toast, )
-//                    Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+                    if (purchasedTickets.contains(row to seat)) return@setOnClickListener
+
+                    CustomDialogFragment.show(
+                        supportFragmentManager, "Sas", calculatedTicketCosts[row], row, seat
+                    )
                 }
                 cinema_room_places.addView(view)
             }
@@ -63,28 +73,43 @@ class MainActivity : AppCompatActivity() {
 
         return calculatedTicketCosts
     }
+
+    internal fun markSeatAsPurchased(row: Int, seat: Int) {
+        purchasedTickets.add(row to seat)
+        val view = cinema_room_places.getChildAt(row * cinema_room_places.columnCount + seat)
+        view.cinema_room_place_card.setBackgroundColor(Color.DKGRAY)
+    }
 }
 
-class CustomDialogFragment: DialogFragment() {
+class CustomDialogFragment : DialogFragment() {
 
     companion object {
         fun show(
-            fragmentManager: FragmentManager,
-            tag: String,
-            ticketCost: Float
+            fragmentManager: FragmentManager, tag: String, ticketCost: Float, row: Int, seat: Int
         ) = CustomDialogFragment().apply {
             arguments = Bundle().apply {
                 putFloat("TicketCost", ticketCost)
+                putInt("Row", row)
+                putInt("Seat", seat)
             }
         }.show(fragmentManager, tag)
     }
 
+    private val cost: Float
+        get() = arguments!!.getFloat("TicketCost")
+
+    private val row: Int
+        get() = arguments!!.getInt("Row")
+
+    private val seat: Int
+        get() = arguments!!.getInt("Seat")
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Buy a ticket")
-        builder.setMessage("Anus ${arguments?.getFloat("TicketCost")}")
+        builder.setMessage("Anus $cost")
         builder.setPositiveButton("Buy a ticket") { dialog, which ->
-
+            (requireActivity() as MainActivity).markSeatAsPurchased(row, seat)
         }
         builder.setNegativeButton("Cancel purchase") { dialog, which ->
             dialog.dismiss()
