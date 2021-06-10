@@ -4,8 +4,6 @@ files:
   visible: false
 - name: src/main/AndroidManifest.xml
   visible: true
-- name: src/main/res/layout/activity_main.xml
-  visible: true
 - name: src/main/res/values/colors.xml
   visible: true
 - name: src/main/res/values/styles.xml

@@ -3,4 +3,8 @@
     <string name="cinema_room_screen">Screen</string>
     <string name="cinema_room_ticket_price">Estimated ticket price: %.2f$</string>
     <string name="cinema_room_ticket_price_toast">%.2f$</string>
+    <string name="cinema_room_total_income">Total cinema income: %.2f$</string>
+    <string name="cinema_room_current_income">Current cinema income: %.2f$</string>
+    <string name="cinema_room_available_seats">Available seats: %1$d</string>
+    <string name="cinema_room_occupied_seats">Occupied seats: %1$d</string>
 </resources>

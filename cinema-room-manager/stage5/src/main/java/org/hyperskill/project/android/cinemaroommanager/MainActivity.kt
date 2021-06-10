@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val rows = 7
     private val seats = 8
 
-    private val purchasedTickets = HashSet<Pair<Int, Int>>()
+    private val purchasedTickets = HashSet<Ticket>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,20 +33,20 @@ class MainActivity : AppCompatActivity() {
         val baseTicketPrice = ((rating * movieDurationProfit) / (rows * seats))
         val calculatedTicketCosts = getCalculatedTicketCosts(baseTicketPrice)
 
-        cinema_room_ticket_price.text =
-            getString(R.string.cinema_room_ticket_price, baseTicketPrice)
+        cinema_room_ticket_price.text = getString(R.string.cinema_room_ticket_price, baseTicketPrice)
 
         cinema_room_places.alignmentMode = GridLayout.ALIGN_BOUNDS
         cinema_room_places.columnCount = seats
 
+        var totalIncome = 0f
         val inflater = LayoutInflater.from(this)
         for (row in 0 until rows) {
             for (seat in 0 until seats) {
+                totalIncome += calculatedTicketCosts[row]
                 val view = inflater.inflate(R.layout.item_grid_layout, cinema_room_places, false)
-                view.findViewById<TextView>(R.id.cinema_room_place_item_text).text =
-                    "${row + 1}.${seat + 1}"
+                view.findViewById<TextView>(R.id.cinema_room_place_item_text).text = "${row + 1}.${seat + 1}"
                 view.setOnClickListener {
-                    if (purchasedTickets.contains(row to seat)) return@setOnClickListener
+                    if (purchasedTickets.contains(ticketCompare(row, seat))) return@setOnClickListener
 
                     CustomDialogFragment.show(
                         supportFragmentManager, "Sas", calculatedTicketCosts[row], row, seat
@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity() {
                 cinema_room_places.addView(view)
             }
         }
+
+        cinema_room_total_income.text = getString(R.string.cinema_room_total_income, totalIncome)
+        cinema_room_current_income.text = getString(R.string.cinema_room_current_income, 0f)
+        cinema_room_available_seats.text = getString(R.string.cinema_room_available_seats, rows * seats)
+        cinema_room_occupied_seats.text = getString(R.string.cinema_room_occupied_seats, 0)
     }
 
     private fun getCalculatedTicketCosts(baseTicketCost: Float): List<Float> {
@@ -72,10 +77,14 @@ class MainActivity : AppCompatActivity() {
         return calculatedTicketCosts
     }
 
-    internal fun markSeatAsPurchased(row: Int, seat: Int) {
-        purchasedTickets.add(row to seat)
+    internal fun markSeatAsPurchased(row: Int, seat: Int, price: Float) {
+        purchasedTickets.add(Ticket(row, seat, price))
         val view = cinema_room_places.getChildAt(row * cinema_room_places.columnCount + seat)
         view.cinema_room_place_indicator.setCardBackgroundColor(Color.DKGRAY)
+        val currentTotalIncome = purchasedTickets.map { it.price }.reduce { acc, price -> acc + price }
+        cinema_room_current_income.text = getString(R.string.cinema_room_current_income, currentTotalIncome)
+        cinema_room_occupied_seats.text = getString(R.string.cinema_room_occupied_seats, purchasedTickets.size)
+        cinema_room_available_seats.text = getString(R.string.cinema_room_available_seats, rows * seats - purchasedTickets.size)
     }
 }
 
@@ -107,7 +116,7 @@ class CustomDialogFragment : DialogFragment() {
         builder.setTitle("Buy a ticket ${row + 1} row ${seat + 1} place")
         builder.setMessage("Your ticket price is ${round(cost * 100) / 100}$")
         builder.setPositiveButton("Buy a ticket") { dialog, which ->
-            (requireActivity() as MainActivity).markSeatAsPurchased(row, seat)
+            (requireActivity() as MainActivity).markSeatAsPurchased(row, seat, cost)
         }
         builder.setNegativeButton("Cancel purchase") { dialog, which ->
             dialog.dismiss()
@@ -115,3 +124,25 @@ class CustomDialogFragment : DialogFragment() {
         return builder.create()
     }
 }
+
+data class Ticket(val row: Int, val place: Int, val price: Float) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Ticket
+
+        if (row != other.row) return false
+        if (place != other.place) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = row
+        result = 31 * result + place
+        return result
+    }
+}
+
+fun ticketCompare(row: Int, seat: Int) = Ticket(row, seat, -1f)
