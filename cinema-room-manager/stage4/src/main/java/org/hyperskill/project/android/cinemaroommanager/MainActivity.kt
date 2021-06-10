@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     internal fun markSeatAsPurchased(row: Int, seat: Int) {
         purchasedTickets.add(row to seat)
         val view = cinema_room_places.getChildAt(row * cinema_room_places.columnCount + seat)
-        view.cinema_room_place_indicator.setBackgroundColor(Color.DKGRAY)
+        view.cinema_room_place_indicator.setCardBackgroundColor(Color.DKGRAY)
     }
 }
 

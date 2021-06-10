@@ -30,3 +30,5 @@ files:
   visible: false
 - name: src/main/java/org/hyperskill/project/android/cinemaroommanager/MainActivity.kt
   visible: true
+- name: src/test/java/org/hyperskill/project/android/cinemaroommanager/Stage4UnitTest.kt
+  visible: false
