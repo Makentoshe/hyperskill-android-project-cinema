@@ -1,52 +1,40 @@
-<html>
+<h2>Description</h2>
 
-<h2>Task Description: Tips & Tricks</h2>
+<p>The theatre is getting popular, and the customers started complaining that it's not practical
+    that the application doesn't allow buying tickets. Let's add a dialog that will allow them to
+    buy tickets and display the current state of the seating arrangement when needed.</p>
 
-<p>This is a task description file.
-Its content will be displayed to a learner
-in the <strong>Task Description</strong> window.</p>
+<h2>Objectives</h2>
 
-<p>It supports both Markdown and HTML.
-To toggle the format, you can rename <strong>task.md</strong>
-to <strong>task.html</strong>, or vice versa.
-The default task description format can be changed
-in <strong>Preferences | Tools | Education</strong>,
-but this will not affect any existing task description files.</p>
+<p>Clicking on the seat displays a dialog that contains a ticket price and two options - buy a
+    ticket or cancel the purchase. If a ticket was already bought, clicking on that seat should be
+    disabled. For a better user experience let's color seats in the cinema room. The available seats
+    should be green, and those already purchased should be gray.<br>
+    <br>
+    1) The AlertDialog title should have a row and a place number. Example template: "Buy a ticket 1
+    row 6 place".</p>
 
-<p>The following features are available in
-<strong>task.md/task.html</strong>
-which are specific to the EduTools plugin:</p>
+<p>2) AlertDialog message should have a ticket price. Example template: "Your ticket price is
+    24.11$".</p>
 
-<ul>
-<li>Hints can be added anywhere in the task text.
-Type "hint" and press Tab.
-Hints should be added to an empty line in the task text.
-In hints you can use HTML only.
-<div class="hint">Text of your hint</div></li>
+<p>3) AlertDialog should have a positive button with a "Buy a ticket" text.</p>
 
-<li>You may need to refer your learners to a particular lesson,
-task, or file. To achieve this, you can use the in-course links.
-Specify the path using the <code>&lt;a href="course://lesson1/task1/file1"&gt;
-link_text&lt;/a&gt;</code> format.</li><br>
+<p>4) AlertDialog should have a negative button with a "Cancel purchase" text.</p>
 
-<li>You can insert shortcuts in the task description.
-While <strong>task.html/task.md</strong> is open,
-right-click anywhere on the <strong>Editor</strong> tab
-and choose the <strong>Insert shortcut</strong> option
-from the context menu.
-For example: &amp;shortcut:FileStructurePopup;.</li><br>
+<p>5) The purchased place should be disabled for clicking and its
+    indicator(R.id.cinema_room_place_indicator) should be a CardView type and have a gray color
+    (Color.DKGRAY or android.R.color.darker_gray) background.
+    Use <code>setCardBackgroundColor</code> method for setup a proper property that will be checked
+</p>
 
-<li>Insert the &percnt;<code>IDE_NAME</code>&percnt; macro,
-which will be replaced by the actual IDE name.
-For example, <strong>%IDE_NAME%</strong>.</li><br>
+<h2>Examples</h2>
 
-<li>Insert PSI elements, by using links like
-<code>&lt;a href="psi_element://link.to.element"&gt;element description&lt;/a&gt;</code>.
-To get such a link, right-click the class or method
-and select <strong>Copy Reference</strong>.
-Then press &amp;shortcut:EditorPaste;
-to insert the link where appropriate.
-For example, a
-<a href="psi_element://java.lang.String#contains">link to the "contains" method</a>.</li>
-</ul>
-</html>
+<p>This is how your application may be looked like after stage completion.</p>
+
+<p><strong>Note</strong>, that the application on the screenshot is in the system dark mode. If you
+    prefer a light system mode, your application <em>may </em>use another color scheme.</p>
+
+<p><img alt="" height="463" src="https://ucarecdn.com/54705c75-e864-4b3b-9051-e9fc12cb5579/"
+        width="219">        <img alt="" height="462"
+                                 src="https://ucarecdn.com/02330ca7-092b-4ea9-bcf7-b0eac83c5c9a/"
+                                 width="219"></p>

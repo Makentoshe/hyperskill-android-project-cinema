@@ -1,52 +1,41 @@
-<html>
+<h2>Description</h2>
 
-<h2>Task Description: Tips & Tricks</h2>
+<p>Good job: our friends really liked your program!&nbsp;Now they want to expand their app by adding
+    a wholesome feature, named &quot;profit&quot;. This feature depends on movie duration, ratings,
+    and available seats in the cinema room. This feature&nbsp;allows defining the best cinema
+    session. Help&nbsp;them calculate the &quot;profit&quot; from the current session, and, maybe,
+    let them raise the ticket cost for the best/popular movies.</p>
 
-<p>This is a task description file.
-Its content will be displayed to a learner
-in the <strong>Task Description</strong> window.</p>
+<h2>Objectives</h2>
 
-<p>It supports both Markdown and HTML.
-To toggle the format, you can rename <strong>task.md</strong>
-to <strong>task.html</strong>, or vice versa.
-The default task description format can be changed
-in <strong>Preferences | Tools | Education</strong>,
-but this will not affect any existing task description files.</p>
-
-<p>The following features are available in
-<strong>task.md/task.html</strong>
-which are specific to the EduTools plugin:</p>
+<p>In this stage, you need to read two positive numbers from the activity intent property: the movie
+    duration in full minutes (under the &quot;DURATION&quot; string key) and the movie rating in the
+    range 0 until 5 (under the &quot;RATING&quot; string key). The ticket price is determined by the
+    following rules:</p>
 
 <ul>
-<li>Hints can be added anywhere in the task text.
-Type "hint" and press Tab.
-Hints should be added to an empty line in the task text.
-In hints you can use HTML only.
-<div class="hint">Text of your hint</div></li>
-
-<li>You may need to refer your learners to a particular lesson,
-task, or file. To achieve this, you can use the in-course links.
-Specify the path using the <code>&lt;a href="course://lesson1/task1/file1"&gt;
-link_text&lt;/a&gt;</code> format.</li><br>
-
-<li>You can insert shortcuts in the task description.
-While <strong>task.html/task.md</strong> is open,
-right-click anywhere on the <strong>Editor</strong> tab
-and choose the <strong>Insert shortcut</strong> option
-from the context menu.
-For example: &amp;shortcut:FileStructurePopup;.</li><br>
-
-<li>Insert the &percnt;<code>IDE_NAME</code>&percnt; macro,
-which will be replaced by the actual IDE name.
-For example, <strong>%IDE_NAME%</strong>.</li><br>
-
-<li>Insert PSI elements, by using links like
-<code>&lt;a href="psi_element://link.to.element"&gt;element description&lt;/a&gt;</code>.
-To get such a link, right-click the class or method
-and select <strong>Copy Reference</strong>.
-Then press &amp;shortcut:EditorPaste;
-to insert the link where appropriate.
-For example, a
-<a href="psi_element://java.lang.String#contains">link to the "contains" method</a>.</li>
+    <li>The most comfortable movie duration is 90 minutes, so, the formula for predicting profit:&nbsp;<span
+            class="math-tex">\[y = -{1 \over 90} x^2 +2x + 90\]</span>where <em>x</em> is a movie
+        duration in full minutes, and y is a <em>movie_duration_profit</em></li>
+    <li>The base formula for the ticket price is (<em>rating </em><em>*&nbsp;movie_duration_profit)
+        / available_seats</em></li>
+    <li>If the rating doesn&#39;t declare from intent, the value should be equal to 4.5.</li>
+    <li>If the movie duration doesn&#39;t declare from intent, the value should be equal to 108.
+    </li>
+    <li>The calculation result should look like &quot;Estimated ticket price: your-value-here$&quot;
+        and placed in a TextView with id <em>cinema_room_ticket_price</em>.
+    </li>
 </ul>
-</html>
+
+<p>&nbsp;</p>
+
+<h2>Example</h2>
+
+<p>This is how your application may be looked like after stage completion.</p>
+
+<p><strong>Note</strong>, that the application on the screenshot is in the system dark mode. If you
+    prefer a light system mode, your application&nbsp;<em>may&nbsp;</em>use another color scheme.
+</p>
+
+<p><img alt="" height="578" src="https://ucarecdn.com/be37d8ea-6810-44fa-9db3-2381117a3b3f/"
+        width="274"/></p>
