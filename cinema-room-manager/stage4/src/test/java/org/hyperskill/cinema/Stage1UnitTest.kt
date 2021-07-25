@@ -1,4 +1,4 @@
-package org.hyperskill.project.android.cinema
+package org.hyperskill.cinema
 
 import android.widget.GridLayout
 import android.widget.TextView

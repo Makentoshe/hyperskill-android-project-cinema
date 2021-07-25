@@ -18,13 +18,13 @@ files:
   visible: true
 - name: src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
   visible: true
-- name: src/test/java/org/hyperskill/project/android/cinema/Stage1UnitTest.kt
+- name: src/test/java/org/hyperskill/cinema/Stage1UnitTest.kt
   visible: false
-- name: src/test/java/org/hyperskill/project/android/cinema/Stage2UnitTest.kt
+- name: src/test/java/org/hyperskill/cinema/Stage2UnitTest.kt
   visible: false
-- name: src/test/java/org/hyperskill/project/android/cinema/Stage3UnitTest.kt
+- name: src/test/java/org/hyperskill/cinema/Stage3UnitTest.kt
   visible: false
-- name: src/test/java/org/hyperskill/project/android/cinema/Stage4UnitTest.kt
+- name: src/test/java/org/hyperskill/cinema/Stage4UnitTest.kt
   visible: false
 - name: src/main/java/org/hyperskill/cinema/MainActivity.kt
   visible: true
