@@ -1,4 +1,4 @@
-package org.hyperskill.project.android.cinemaroommanager
+package org.hyperskill.project.android.cinema
 
 import android.app.Dialog
 import android.content.Intent
