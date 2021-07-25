@@ -1,10 +1,8 @@
-package org.hyperskill.project.android.cinemaroommanager
+package org.hyperskill.cinema
 
 import android.content.Intent
 import android.widget.GridLayout
-import android.widget.TextView
-import androidx.core.view.forEachIndexed
-import org.junit.Assert.*
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric

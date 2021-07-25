@@ -6,7 +6,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "org.hyperskill.project.android.cinemaroommanager"
+        applicationId "org.hyperskill.cinema"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
