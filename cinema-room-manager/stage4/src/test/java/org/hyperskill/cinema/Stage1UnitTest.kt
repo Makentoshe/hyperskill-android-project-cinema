@@ -2,6 +2,7 @@ package org.hyperskill.cinema
 
 import android.widget.GridLayout
 import android.widget.TextView
+import androidx.core.view.forEachIndexed
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
