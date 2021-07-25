@@ -2,6 +2,7 @@ package org.hyperskill.project.android.cinemaroommanager
 
 import android.app.Dialog
 import android.content.Intent
+import android.os.Looper
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.TextView
@@ -10,10 +11,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows
 import org.robolectric.shadows.ShadowAlertDialog
 
-
-// Version 1.0
+// Version 1.1
 @RunWith(RobolectricTestRunner::class)
 class Stage5UnitTest {
 
@@ -33,11 +34,16 @@ class Stage5UnitTest {
 
         val gridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
         val gridLayoutChild = gridLayout.getChildAt(0 * gridLayout.columnCount + 1)
-        gridLayoutChild.performClick()
 
+        // Click grid element
+        gridLayoutChild.performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
+
+        // Click positive button in dialog
         val dialog1 = ShadowAlertDialog.getLatestAlertDialog()
         val positiveButton: Button = dialog1.getButton(Dialog.BUTTON_POSITIVE)
         positiveButton.performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
 
         val totalIncomeTextView = activity.findViewById<TextView>(R.id.cinema_room_total_income)
         assertEquals(message1, totalIncomeTextView.text, "Total cinema income: 964.29$")

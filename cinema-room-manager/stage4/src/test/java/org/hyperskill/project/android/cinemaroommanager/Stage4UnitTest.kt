@@ -3,6 +3,7 @@ package org.hyperskill.project.android.cinemaroommanager
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.os.Looper
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.TextView
@@ -13,9 +14,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows
 import org.robolectric.shadows.ShadowAlertDialog
 
-// Version 1.0
+// Version 1.1
 @RunWith(RobolectricTestRunner::class)
 class Stage4UnitTest {
 
@@ -34,6 +36,7 @@ class Stage4UnitTest {
 
         val gridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
         gridLayout.getChildAt(0 * gridLayout.columnCount + 5).performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).runToEndOfTasks()
 
         val dialog = ShadowAlertDialog.getLatestAlertDialog()
         val titleId: Int = dialog.context.resources.getIdentifier("alertTitle", "id", "android")
@@ -55,6 +58,7 @@ class Stage4UnitTest {
 
         val gridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
         gridLayout.getChildAt(0 * gridLayout.columnCount + 5).performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).runToEndOfTasks()
 
         val dialog = ShadowAlertDialog.getLatestAlertDialog()
         val messageId: Int = dialog.context.resources.getIdentifier("message", "id", "android")
@@ -77,16 +81,26 @@ class Stage4UnitTest {
 
         val gridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
         val gridLayoutChild = gridLayout.getChildAt(0 * gridLayout.columnCount + 5)
-        gridLayoutChild.performClick()
 
+        // Click to grid element to invoke dialog
+        gridLayoutChild.performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
+
+        // Click a positive button
         val dialog1 = ShadowAlertDialog.getLatestAlertDialog()
         val positiveButton: Button = dialog1.getButton(Dialog.BUTTON_POSITIVE)
         positiveButton.performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
 
+        // Check the grid element indicator
         val indicator = gridLayoutChild.findViewById<CardView>(R.id.cinema_room_place_indicator)
         assertEquals(message1, indicator.cardBackgroundColor.defaultColor, Color.DKGRAY)
 
+        // Click to grid element to try to invoke dialog again
         gridLayoutChild.performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
+
+        // Check dialog does not appears
         val dialog2 = ShadowAlertDialog.getLatestAlertDialog()
         assertEquals(message2, dialog1, dialog2)
     }
@@ -105,16 +119,26 @@ class Stage4UnitTest {
 
         val gridLayout = activity.findViewById<GridLayout>(R.id.cinema_room_places)
         val gridLayoutChild = gridLayout.getChildAt(0 * gridLayout.columnCount + 5)
-        gridLayoutChild.performClick()
 
+        // Click to grid element to invoke dialog
+        gridLayoutChild.performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).runToEndOfTasks()
+
+        // Click a negative button
         val dialog1 = ShadowAlertDialog.getLatestAlertDialog()
         val negativeButton: Button = dialog1.getButton(Dialog.BUTTON_NEGATIVE)
         negativeButton.performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
 
+        // Check the grid element indicator
         val indicator = gridLayoutChild.findViewById<CardView>(R.id.cinema_room_place_indicator)
         assertNotEquals(message1, indicator.cardBackgroundColor.defaultColor, Color.DKGRAY)
 
+        // Click to grid element to try to invoke dialog again
         gridLayoutChild.performClick()
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
+
+        // Check dialog appears
         val dialog2 = ShadowAlertDialog.getLatestAlertDialog()
         assertNotEquals(message2, dialog1, dialog2)
     }

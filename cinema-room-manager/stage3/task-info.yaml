@@ -1,7 +1,5 @@
 type: edu
 files:
-- name: build.gradle
-  visible: false
 - name: src/main/AndroidManifest.xml
   visible: true
 - name: src/main/res/layout/activity_main.xml
@@ -20,8 +18,6 @@ files:
   visible: true
 - name: src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
   visible: true
-- name: src/test/java/resources/robolectric.properties
-  visible: false
 - name: src/test/java/org/hyperskill/project/android/cinemaroommanager/Stage1UnitTest.kt
   visible: false
 - name: src/test/java/org/hyperskill/project/android/cinemaroommanager/Stage2UnitTest.kt
