@@ -2,3 +2,5 @@ type: edu
 files:
 - name: src/test/java/org/hyperskill/cinema/Stage2UnitTest.kt
   visible: false
+- name: src/test/java/org/hyperskill/cinema/AbstractUnitTest.kt
+  visible: false
