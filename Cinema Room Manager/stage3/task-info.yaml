@@ -6,3 +6,5 @@ files:
   visible: false
 - name: src/test/java/org/hyperskill/cinema/Stage3UnitTest.kt
   visible: false
+- name: src/test/java/org/hyperskill/cinema/AbstractUnitTest.kt
+  visible: false
