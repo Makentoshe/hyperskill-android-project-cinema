@@ -1,8 +1,0 @@
-type: edu
-files:
-- name: build.gradle
-  visible: false
-- name: src/test/java/org/hyperskill/cinema/Stage1UnitTest.kt
-  visible: false
-- name: src/test/java/org/hyperskill/cinema/AbstractUnitTest.kt
-  visible: false
