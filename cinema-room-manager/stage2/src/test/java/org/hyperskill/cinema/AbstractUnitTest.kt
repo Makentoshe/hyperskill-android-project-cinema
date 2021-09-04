@@ -22,11 +22,9 @@ abstract class AbstractUnitTest<T : Activity>(private val activityClass: Class<T
         return activity.resources.getIdentifier(id, "id", activity.packageName)
     }
 
-    protected fun <T: View> find(id: Int) : T? = activity.findViewById(id)
+    protected fun <T: View> find(id: Int) : T = activity.findViewById(id)
 
-    protected fun <T: View> Activity.find(id: Int) : T? = findViewById(id)
+    protected fun <T: View> find(id: String) : T = activity.findViewById(identifier(id))
 
-    protected fun <T: View> find(id: String) : T? = activity.findViewById(identifier(id))
-
-    protected fun <T: View> Activity.find(id: String) : T? = findViewById(identifier(id))
+    protected fun <T: View> View.find(id: String): T = activity.findViewById(identifier(id))
 }
