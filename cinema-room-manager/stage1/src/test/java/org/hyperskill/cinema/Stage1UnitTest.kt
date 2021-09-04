@@ -3,6 +3,7 @@ package org.hyperskill.cinema
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.view.forEachIndexed
+import androidx.core.view.size
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -10,6 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
+// Version 04.09.2021
 @RunWith(RobolectricTestRunner::class)
 class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
@@ -52,10 +54,18 @@ class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
     fun testShouldCheckPlacesSeats() {
         val message = "does view with id \"cinema_room_places\" contains a proper seats describe?"
 
-        find<GridLayout>("cinema_room_places").forEachIndexed { index, seat ->
+        find<GridLayout>("cinema_room_places").also { gridLayout ->
+            assertEquals(56, gridLayout.size)
+        }.forEachIndexed { index, seat ->
             val seatRow = index / 8 + 1
             val seatColumn = index % 8 + 1
-            val seatText = seat.findViewById<TextView>(R.id.cinema_room_place_item_text).text
+
+            // Note: even seat is can be already a view, it shouldn't be casted to textView
+            // because someone might try to wrap a TextView with other container such
+            // as FrameLayout or CardLayout
+            // In this case the different from `(seat as TextView).text` solution will not
+            // being passed.
+            val seatText = seat.find<TextView>("cinema_room_place_item_text").text
             assertEquals(message, "${seatRow}.${seatColumn}", seatText)
         }
     }

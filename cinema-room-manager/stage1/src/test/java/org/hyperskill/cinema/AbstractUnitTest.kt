@@ -25,4 +25,6 @@ abstract class AbstractUnitTest<T : Activity>(private val activityClass: Class<T
     protected fun <T: View> find(id: Int) : T = activity.findViewById(id)
 
     protected fun <T: View> find(id: String) : T = activity.findViewById(identifier(id))
+
+    protected fun <T: View> View.find(id: String): T = activity.findViewById(identifier(id))
 }
