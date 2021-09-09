@@ -6,59 +6,63 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
+import java.util.*
 
-// Version 1.0
 @RunWith(RobolectricTestRunner::class)
-class Stage2UnitTest {
+class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
-    private val activityController = Robolectric.buildActivity(MainActivity::class.java)
+    companion object {
+        private const val DOUBLE_ASSERT_DELTA = 0.1
+    }
 
     @Test
     fun testShouldCheckTicketPriceViewExist() {
         val message = "does view with id \"cinema_room_ticket_price\" placed in activity?"
-
-        val activity = activityController.setup().get()
-        val ticketPriceView = activity.findViewById<TextView?>(R.id.cinema_room_ticket_price)
-        assertNotNull(message, ticketPriceView)
+        activity = activityController.setup().get()
+        assertNotNull(message, find<TextView>("cinema_room_ticket_price"))
     }
 
     @Test
     fun testShouldCheckTicketPriceViewDefault() {
         val message = "does default DURATION and RATING properties received from intent valid?"
+        activity = activityController.setup().get()
+        val ticketPriceView = find<TextView>("cinema_room_ticket_price")
 
-        val activity = activityController.setup().get()
-        val ticketPriceView = activity.findViewById<TextView?>(R.id.cinema_room_ticket_price)
-        assertEquals(message, "Estimated ticket price: 14.22\$", ticketPriceView.text.trim())
+        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
+        assertEquals(message, 14.22, value.toDouble(), DOUBLE_ASSERT_DELTA)
     }
 
     @Test
     fun testShouldCheckTicketPriceView1() {
         val message = "does DURATION and RATING properties receives from intent?"
 
-        val activity = activityController.apply {
+        activity = activityController.apply {
             get().intent = Intent().apply {
                 putExtra("DURATION", 90)
                 putExtra("RATING", 5.0f)
             }
         }.setup().get()
-        val ticketPriceView = activity.findViewById<TextView?>(R.id.cinema_room_ticket_price)
-        assertEquals(message, "Estimated ticket price: 16.07\$", ticketPriceView.text.trim())
+
+        val ticketPriceView = find<TextView>("cinema_room_ticket_price")
+        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
+        assertEquals(message, 16.07, value.toDouble(), DOUBLE_ASSERT_DELTA)
     }
 
     @Test
     fun testShouldCheckTicketPriceView2() {
         val message = "does DURATION and RATING properties receives from intent?"
 
-        val activity = activityController.apply {
+        activity = activityController.apply {
             get().intent = Intent().apply {
                 putExtra("DURATION", 39)
                 putExtra("RATING", 3.9f)
             }
         }.setup().get()
-        val ticketPriceView = activity.findViewById<TextView?>(R.id.cinema_room_ticket_price)
-        assertEquals(message, "Estimated ticket price: 10.59\$", ticketPriceView.text.trim())
+
+        val ticketPriceView = find<TextView>("cinema_room_ticket_price")
+        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
+        assertEquals(message, 10.59, value.toDouble(), DOUBLE_ASSERT_DELTA)
     }
 
 }

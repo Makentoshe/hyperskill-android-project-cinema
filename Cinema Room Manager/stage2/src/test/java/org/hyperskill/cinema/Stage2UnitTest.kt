@@ -7,9 +7,14 @@ import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
+
+    companion object {
+        private const val DOUBLE_ASSERT_DELTA = 0.1
+    }
 
     @Test
     fun testShouldCheckTicketPriceViewExist() {
@@ -23,7 +28,9 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         val message = "does default DURATION and RATING properties received from intent valid?"
         activity = activityController.setup().get()
         val ticketPriceView = find<TextView>("cinema_room_ticket_price")
-        assertEquals(message, "Estimated ticket price: 14.22\$", ticketPriceView?.text?.trim())
+
+        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
+        assertEquals(message, 14.22, value.toDouble(), DOUBLE_ASSERT_DELTA)
     }
 
     @Test
@@ -38,7 +45,8 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         }.setup().get()
 
         val ticketPriceView = find<TextView>("cinema_room_ticket_price")
-        assertEquals(message, "Estimated ticket price: 16.07\$", ticketPriceView?.text?.trim())
+        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
+        assertEquals(message, 16.07, value.toDouble(), DOUBLE_ASSERT_DELTA)
     }
 
     @Test
@@ -53,7 +61,8 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         }.setup().get()
 
         val ticketPriceView = find<TextView>("cinema_room_ticket_price")
-        assertEquals(message, "Estimated ticket price: 10.59\$", ticketPriceView?.text?.trim())
+        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
+        assertEquals(message, 10.59, value.toDouble(), DOUBLE_ASSERT_DELTA)
     }
 
 }
