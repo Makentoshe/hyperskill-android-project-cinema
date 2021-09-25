@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cinema_room_screen"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/cinema_room_screen_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/cinema_room_screen" />
+
+    </androidx.cardview.widget.CardView>
+
+    <GridLayout
+        android:id="@+id/cinema_room_places"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:layout_marginHorizontal="16dp"
+        android:useDefaultMargins="true"
+        app:layout_constraintTop_toBottomOf="@id/cinema_room_screen">
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/cinema_room_ticket_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cinema_room_places"/>
+
+    <TextView
+        android:id="@+id/cinema_room_total_income"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cinema_room_ticket_price"/>
+
+    <TextView
+        android:id="@+id/cinema_room_current_income"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cinema_room_total_income"/>
+
+    <TextView
+        android:id="@+id/cinema_room_available_seats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cinema_room_current_income"/>
+
+    <TextView
+        android:id="@+id/cinema_room_occupied_seats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cinema_room_available_seats"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
