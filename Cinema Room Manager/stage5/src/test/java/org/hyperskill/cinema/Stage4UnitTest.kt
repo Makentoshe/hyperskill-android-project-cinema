@@ -17,7 +17,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 import org.robolectric.shadows.ShadowAlertDialog
 
-// Version 1.1
+// Version 17.10.2021
 @RunWith(RobolectricTestRunner::class)
 class Stage4UnitTest {
 
@@ -107,9 +107,6 @@ class Stage4UnitTest {
 
     @Test
     fun testShouldCheckDialogNegativeButton() {
-        val message1 = "make sure you do nothing, if purchase was canceled"
-        val message2 = "alert dialog should be displayed again if the previous purchase was canceled"
-
         val activity = activityController.apply {
             get().intent = Intent().apply {
                 putExtra("DURATION", 90)
@@ -128,18 +125,28 @@ class Stage4UnitTest {
         val dialog1 = ShadowAlertDialog.getLatestAlertDialog()
         val negativeButton: Button = dialog1.getButton(Dialog.BUTTON_NEGATIVE)
         negativeButton.performClick()
-        Shadows.shadowOf(Looper.getMainLooper()).idle()
+        Shadows.shadowOf(Looper.getMainLooper()).runToEndOfTasks()
 
         // Check the grid element indicator
         val indicator = gridLayoutChild.findViewById<CardView>(R.id.cinema_room_place_indicator)
+        val message1 = """
+            Make sure you do nothing, if purchase was canceled (Indicator color and Indication color should not being equal)
+            Indicator color: ${indicator.cardBackgroundColor.defaultColor}
+            Indication color: ${Color.DKGRAY}
+            """.trimIndent()
         assertNotEquals(message1, indicator.cardBackgroundColor.defaultColor, Color.DKGRAY)
 
         // Click to grid element to try to invoke dialog again
         gridLayoutChild.performClick()
-        Shadows.shadowOf(Looper.getMainLooper()).idle()
+        Shadows.shadowOf(Looper.getMainLooper()).runToEndOfTasks()
 
         // Check dialog appears
         val dialog2 = ShadowAlertDialog.getLatestAlertDialog()
+        val message2 = """
+            Alert dialog should be displayed again if the previous purchase was canceled (dialogs should be different)
+            First dialog: $dialog1
+            Secod dialog: $dialog2
+        """.trimMargin()
         assertNotEquals(message2, dialog1, dialog2)
     }
 }
