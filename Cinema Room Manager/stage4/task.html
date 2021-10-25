@@ -2,6 +2,10 @@
 
 <p>Our venue is getting really popular. Customers now want to purchase tickets right from the app. Let's add a dialog box that will allow them to do it. Don't forget to display the current state of the reserved seating.</p>
 
+<p>The best approach is to use DialogFragment that allows to easily avoid memory leaks and other issues with properly state handling due to device rotations and other android stuff.</p>
+
+<p>Anyway, under the hood, it uses a default android.app.AlertDialog, so let's use it to avoid compatibility issues</p>
+
 <h2>Objectives</h2>
 
 <p>A click on the seat should display a dialog that contains a ticket price and two options: buy a ticket or cancel the purchase. If the ticket is already reserved, no dialog option should be available. For a better user experience, let's color seats in the cinema room. Make available seats green and booked seats gray.<br>
