@@ -26,3 +26,5 @@ files:
   visible: false
 - name: src/test/java/org/hyperskill/cinema/AbstractUnitTest.kt
   visible: false
+- name: src/main/res/layout/item_grid_layout.xml
+  visible: true
