@@ -165,32 +165,10 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         assertNotEquals(message2, dialog1, dialog2)
     }
 
-    private inline fun <reified A : Activity> ActivityController<A>.`launch this activity and execute`(
-        arguments: Intent? = Intent(),
-        crossinline action: A.() -> Unit
-    ): ActivityController<A> {
-        get().intent = arguments
-        return setup().also { it.get().apply(action) }
-    }
-
-    private fun MainActivity.`grid layout child`(index: Int): View {
-        return find<GridLayout>("cinema_room_places").getChildAt(index)
-    }
-
-    private fun View.`perform click`() {
-        performClick()
-        Shadows.shadowOf(Looper.getMainLooper()).runToEndOfTasks()
-    }
-
-    private fun `in alert dialog`(): AlertDialog = ShadowAlertDialog.getLatestAlertDialog()
-
-    private fun AlertDialog.`for negative button`(): Button = getButton(Dialog.BUTTON_NEGATIVE)
 
     private fun AlertDialog.`for dialog title`(): TextView = find("alertTitle", "android")
 
     private fun AlertDialog.`for dialog message`(): TextView = find("message", "android")
-
-    private fun AlertDialog.`for positive button`(): Button = getButton(Dialog.BUTTON_POSITIVE)
 
     private infix fun View.`visibility should be`(visibility: Int) {
         assertEquals(visibility, this.visibility)
@@ -202,28 +180,6 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     private fun TextView.`text should be`(errorMessage: String, expected: String) {
         assertEquals(errorMessage, expected, text)
-    }
-
-    private fun TextView.`text should be`(errorMessage: String, action: (String) -> Boolean) {
-        assertTrue(errorMessage, action(text.toString()))
-    }
-
-    private fun `most profitable movie`() = Intent().apply {
-        putExtra("DURATION", 90)
-        putExtra("RATING", 5.0f)
-    }
-
-    private fun String.`is contain double`(expected: Double, `with delta`: Double): Boolean {
-        val scanner = Scanner(this).useLocale(Locale.US)
-        while (scanner.hasNext()) {
-            if (scanner.hasNextDouble()) {
-                val scanned = scanner.nextDouble()
-                if (scanned.compareTo(expected) == 0) return true
-                return abs(expected - scanned) > `with delta`
-            }
-            scanner.next()
-        }
-        return false
     }
 
 }
