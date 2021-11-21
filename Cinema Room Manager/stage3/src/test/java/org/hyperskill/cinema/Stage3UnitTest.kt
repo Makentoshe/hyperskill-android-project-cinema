@@ -29,7 +29,7 @@ class Stage3UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     private fun `test toast with parameters`(duration: Int, rating: Float, row: Int, place: Int, price: Float) {
         val message = """
-            do you properly calculates a ticket price? 
+            have you calculated a ticket price properly? 
             For ${rating}f rating and $duration duration the ticket price 
             in ${row + 1} row and in ${place + 1} place should be $price$
         """.trimMargin()

@@ -2,3 +2,5 @@ type: edu
 files:
 - name: src/test/java/org/hyperskill/cinema/Stage3UnitTest.kt
   visible: false
+- name: build.gradle
+  visible: true

@@ -12,7 +12,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check total cinema income value for most profitable movie`() {
-        val message = "did you calculate total income properly?"
+        val message = "have you calculated total income properly?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `for total income view`().`text should be`(message) { text ->
@@ -26,7 +26,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check total cinema income value for default profitable movie`() {
-        val message = "did you calculate total income properly?"
+        val message = "have you calculated total income properly?"
 
         activityController.`launch this activity and execute`(arguments = `default profitable movie`()) {
             `for total income view`().`text should be`(message) { text ->
@@ -40,7 +40,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check initial current cinema income value for most profitable movie`() {
-        val message = "did you calculate current income properly?"
+        val message = "have you calculated current income properly?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `for current income view`().`text should be`(message) { text ->
@@ -54,7 +54,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check initial current cinema income value for default profitable movie`() {
-        val message = "did you calculate current income properly?"
+        val message = "have you calculated current income properly?"
 
         activityController.`launch this activity and execute`(arguments = `default profitable movie`()) {
             `for current income view`().`text should be`(message) { text ->
@@ -68,7 +68,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check current cinema income value for most profitable movie`() {
-        val message = "did you calculate current income properly?"
+        val message = "have you calculated current income properly?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
@@ -84,7 +84,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check current cinema income value for default profitable movie`() {
-        val message = "did you calculate current income properly?"
+        val message = "have you calculated current income properly?"
 
         activityController.`launch this activity and execute`(arguments = `default profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
@@ -100,7 +100,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check initial available seats value`() {
-        val message = "did you really count an available seats?"
+        val message = "have you really counted available seats?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `for available seats view`().`text should be`(message) { text ->
@@ -113,7 +113,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check available seats value`() {
-        val message = "did you really count an available seats?"
+        val message = "have you really counted available seats?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
@@ -128,7 +128,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check initial occupied seats value`() {
-        val message = "did you really count an occupied seats?"
+        val message = "have you really counted occupied seats?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `for occupied seats view`().`text should be`(message) { text ->
@@ -141,7 +141,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check occupied seats value`() {
-        val message = "did you really count an occupied seats?"
+        val message = "have you really counted occupied seats?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
