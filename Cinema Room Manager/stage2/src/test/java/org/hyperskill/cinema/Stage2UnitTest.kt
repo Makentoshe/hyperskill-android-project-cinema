@@ -1,13 +1,11 @@
 package org.hyperskill.cinema
 
 import android.content.Intent
-import android.widget.TextView
-import org.junit.Assert.assertEquals
+import org.hyperskill.cinema.abstraction.AbstractUnitTest
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
@@ -17,69 +15,60 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
     }
 
     @Test
-    fun testShouldCheckTicketPriceViewExist() {
+    fun `test should check ticket price view exists`() {
         val message = "does view with id \"cinema_room_ticket_price\" placed in activity?"
-        activity = activityController.setup().get()
-        assertNotNull(message, find<TextView>("cinema_room_ticket_price"))
+
+        activityController.`launch this activity and execute` {
+            `price text view exists`(message)
+        }
     }
 
     @Test
-    fun testShouldCheckTicketPriceViewDefault() {
+    fun `test should check ticket price view with default arguments`() {
         val message = "does default DURATION and RATING properties received from intent valid?"
-        activity = activityController.setup().get()
-        val ticketPriceView = find<TextView>("cinema_room_ticket_price")
 
-        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
-        assertEquals(message, 14.22, value.toDouble(), DOUBLE_ASSERT_DELTA)
+        activityController.`launch this activity and execute` {
+            `price text view`().`text should contain double`(message, 14.22, DOUBLE_ASSERT_DELTA)
+        }
     }
 
     @Test
-    fun testShouldCheckTicketPriceView1() {
+    fun `test should check ticket price view with best arguments`() {
         val message = "does DURATION and RATING properties receives from intent?"
 
-        activity = activityController.apply {
-            get().intent = Intent().apply {
-                putExtra("DURATION", 90)
-                putExtra("RATING", 5.0f)
-            }
-        }.setup().get()
-
-        val ticketPriceView = find<TextView>("cinema_room_ticket_price")
-        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
-        assertEquals(message, 16.07, value.toDouble(), DOUBLE_ASSERT_DELTA)
+        activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
+            `price text view`().`text should contain double`(message, 16.07, DOUBLE_ASSERT_DELTA)
+        }
     }
 
     @Test
-    fun testShouldCheckTicketPriceView2() {
+    fun `test should check ticket price view with custom arguments`() {
         val message = "does DURATION and RATING properties receives from intent?"
 
-        activity = activityController.apply {
-            get().intent = Intent().apply {
-                putExtra("DURATION", 39)
-                putExtra("RATING", 3.9f)
-            }
-        }.setup().get()
-
-        val ticketPriceView = find<TextView>("cinema_room_ticket_price")
-        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
-        assertEquals(message, 10.59, value.toDouble(), DOUBLE_ASSERT_DELTA)
+        activityController.`launch this activity and execute`(arguments = `custom profitable movie`()) {
+            `price text view`().`text should contain double`(message, 10.59, DOUBLE_ASSERT_DELTA)
+        }
     }
 
     @Test
-    fun testShouldCheckTicketPriceViewOnlyContainsTwoNumbersAfterDot() {
+    fun `test should check ticket price view contains two digits after dot`() {
         val message = "Make sure you've correctly formatted the ticket price. The price should contain two numbers after the dot."
 
-        activity = activityController.apply {
-            get().intent = Intent().apply {
-                putExtra("DURATION", 39)
-                putExtra("RATING", 3.9f)
+        activityController.`launch this activity and execute`(arguments = `custom profitable movie`()) {
+            `price text view`().`text should`(assertMessage = message) {
+                // should be 4 digits in general, like 12.34
+                it.filter { char -> char.isDigit() }.count() == 4
             }
-        }.setup().get()
+        }
+    }
 
-        val ticketPriceView = find<TextView>("cinema_room_ticket_price")
-        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
-        val substring = ("0.${value.substringAfter(".")}")
-        assertEquals(message, 4, substring.length)
+    private fun MainActivity.`price text view exists`(assertMessage: String) {
+        assertNotNull(assertMessage, findOrNull("cinema_room_ticket_price"))
+    }
+
+    private fun `custom profitable movie`() = Intent().apply {
+        putExtra("DURATION", 39)
+        putExtra("RATING", 3.9f)
     }
 
 }

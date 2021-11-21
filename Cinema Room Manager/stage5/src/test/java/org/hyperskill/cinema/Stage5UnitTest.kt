@@ -1,11 +1,12 @@
 package org.hyperskill.cinema
 
 import android.widget.TextView
+import org.hyperskill.cinema.abstraction.AbstractUnitTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-// Version 07.11.2021
+// Version 21.11.2021
 @RunWith(RobolectricTestRunner::class)
 class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 

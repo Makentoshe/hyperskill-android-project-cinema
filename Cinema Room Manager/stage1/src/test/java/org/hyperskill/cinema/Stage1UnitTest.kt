@@ -4,6 +4,7 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.view.forEachIndexed
 import androidx.core.view.size
+import org.hyperskill.cinema.abstraction.AbstractUnitTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -11,62 +12,74 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-// Version 04.09.2021
+// Version 21.09.2021
 @RunWith(RobolectricTestRunner::class)
 class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
-    @Before
-    fun before() {
-        activity = activityController.setup().get()
-    }
-
     @Test
-    fun testShouldCheckScreenExist() {
+    fun `test should check screen view exists`() {
         val message = "does view with id \"cinema_room_screen_text\" placed in activity?"
-        assertNotNull(message, find<TextView>("cinema_room_screen_text"))
+
+        activityController.`launch this activity and execute` {
+            assertNotNull(message, find<TextView>("cinema_room_screen_text"))
+        }
     }
 
     @Test
-    fun testShouldCheckScreenText() {
+    fun `test should check screen view text`() {
         val message = "does view with id \"cinema_room_screen_text\" contains a \"Screen\" text?"
-        assertEquals(message, "Screen", find<TextView>("cinema_room_screen_text").text)
+
+        activityController.`launch this activity and execute` {
+            `screen text view`().`text should be`(errorMessage = message, "Screen")
+        }
     }
 
     @Test
-    fun testShouldCheckPlacesExist() {
+    fun `test should check places exists`() {
         val message = "does view with id \"cinema_room_places\" placed in activity?"
-        assertNotNull(message, find<GridLayout>("cinema_room_places"))
+
+        activityController.`launch this activity and execute` {
+            assertNotNull(message, find<GridLayout>("cinema_room_places"))
+        }
     }
 
     @Test
-    fun testShouldCheckPlacesColumnsCount() {
+    fun `test should check places columns count`() {
         val message = "does view with id \"cinema_room_places\" contains a proper count of columns?"
-        assertEquals(message, 8, find<GridLayout>("cinema_room_places").columnCount)
+
+        activityController.`launch this activity and execute` {
+            assertEquals(message, 8, find<GridLayout>("cinema_room_places").columnCount)
+        }
     }
 
     @Test
-    fun testShouldCheckPlacesRowsCount() {
+    fun `test should check places rows count`() {
         val message = "does view with id \"cinema_room_places\" contains a proper count of rows?"
-        assertEquals(message, 7, find<GridLayout>("cinema_room_places").rowCount)
+
+        activityController.`launch this activity and execute` {
+            assertEquals(message, 7, find<GridLayout>("cinema_room_places").rowCount)
+        }
     }
 
     @Test
-    fun testShouldCheckPlacesSeats() {
+    fun `test should check places seats`() {
         val message = "does view with id \"cinema_room_places\" contains a proper seats describe?"
 
-        find<GridLayout>("cinema_room_places").also { gridLayout ->
-            assertEquals(56, gridLayout.size)
-        }.forEachIndexed { index, seat ->
-            val seatRow = index / 8 + 1
-            val seatColumn = index % 8 + 1
+        activityController.`launch this activity and execute` {
+            find<GridLayout>("cinema_room_places").also { gridLayout ->
+                assertEquals(56, gridLayout.size)
+            }.forEachIndexed { index, seat ->
+                val seatRow = index / 8 + 1
+                val seatColumn = index % 8 + 1
 
-            // Note: even seat is can be already a view, it shouldn't be casted to textView
-            // because someone might try to wrap a TextView with other container such
-            // as FrameLayout or CardLayout
-            // In this case the different from `(seat as TextView).text` solution will not
-            // being passed.
-            val seatText = seat.find<TextView>("cinema_room_place_item_text").text
-            assertEquals(message, "${seatRow}.${seatColumn}", seatText)
+                // Note: even seat is can be already a view, it shouldn't be casted to textView
+                // because someone might try to wrap a TextView with other container such
+                // as FrameLayout or CardLayout
+                // In this case the different from `(seat as TextView).text` solution will not
+                // being passed.
+                val seatText = seat.find<TextView>("cinema_room_place_item_text").text
+                assertEquals(message, "${seatRow}.${seatColumn}", seatText)
+            }
         }
     }
 
