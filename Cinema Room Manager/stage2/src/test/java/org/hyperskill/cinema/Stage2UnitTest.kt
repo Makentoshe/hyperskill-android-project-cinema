@@ -65,4 +65,21 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         assertEquals(message, 10.59, value.toDouble(), DOUBLE_ASSERT_DELTA)
     }
 
+    @Test
+    fun testShouldCheckTicketPriceViewOnlyContainsTwoNumbersAfterDot() {
+        val message = "Make sure you've correctly formatted the ticket price. The price should contain two numbers after the dot."
+
+        activity = activityController.apply {
+            get().intent = Intent().apply {
+                putExtra("DURATION", 39)
+                putExtra("RATING", 3.9f)
+            }
+        }.setup().get()
+
+        val ticketPriceView = find<TextView>("cinema_room_ticket_price")
+        val value = Scanner(ticketPriceView.text.trim().toString()).findInLine("\\d+\\.\\d+")
+        val substring = ("0.${value.substringAfter(".")}")
+        assertEquals(message, 4, substring.length)
+    }
+
 }
