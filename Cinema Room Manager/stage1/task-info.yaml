@@ -24,3 +24,5 @@ files:
   visible: true
 - name: src/test/java/org/hyperskill/cinema/Stage1UnitTest.kt
   visible: false
+- name: src/main/res/layout/item_grid_layout.xml
+  visible: true

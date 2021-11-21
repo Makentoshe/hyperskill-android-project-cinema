@@ -15,26 +15,24 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check dialog's title text`() {
-        val message = "make sure you pass a row number and a place number properly into dialog"
+        val message = "make sure you pass a row number and a place number properly into the dialog"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
-            `in alert dialog`().`for dialog title`()
-                .`text should be`(message, "Buy a ticket 1 row 6 place")
+            `in alert dialog`().`for dialog title`().`text should be`(message, "Buy a ticket 1 row 6 place")
         }
     }
 
     @Test
     fun `test should check dialog's message text`() {
-        val message = "make sure you pass a ticket price properly into dialog"
+        val message = "make sure you pass a ticket price properly into the dialog"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
             `in alert dialog`().`for dialog message`().`text should be`(message) { text ->
                 val startsWith = text.startsWith("Your ticket price is ")
                 val endsWith = text.endsWith("$")
-                val double =
-                    text.replace("$", "").`is contain double`(expected = 24.11, `with delta` = 0.1)
+                val double = text.replace("$", "").`is contain double`(expected = 24.11, `with delta` = 0.1)
                 return@`text should be` startsWith and endsWith and double
             }
         }
@@ -42,8 +40,7 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check booked place color via dialog`() {
-        val message =
-            "make sure you change a purchased cinema place indicator via cardBackgroundColor"
+        val message = "make sure you change a purchased cinema place indicator via cardBackgroundColor"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
@@ -54,7 +51,7 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check booked place availability via dialog`() {
-        val message = "purchased place shouldn't show an alert dialog on click"
+        val message = "the purchased place shouldn't show an alert dialog on click"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
@@ -107,7 +104,7 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
             `grid layout child`(index = 5).indicator().`color shouldn't be`(Color.DKGRAY) {
                 """
-                    Make sure you do nothing, if purchase was canceled (Indicator color and Indication color should not being equal)
+                    Make sure you do nothing if the purchase was canceled (Indicator color and Indication color should not be equal)
                     Indicator color: ${it.cardBackgroundColor.defaultColor}
                     Indication color: ${Color.DKGRAY}
                 """.trimIndent()

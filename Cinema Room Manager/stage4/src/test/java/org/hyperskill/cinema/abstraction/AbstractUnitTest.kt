@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import org.hyperskill.cinema.MainActivity
 import org.junit.Assert
+import org.junit.Assert.assertNull
 import org.robolectric.Shadows
 import org.robolectric.android.controller.ActivityController
 import org.robolectric.shadows.ShadowAlertDialog
@@ -67,7 +68,13 @@ abstract class AbstractUnitTest<T : Activity>(
         Shadows.shadowOf(Looper.getMainLooper()).runToEndOfTasks()
     }
 
-    protected fun `in alert dialog`(): AlertDialog = ShadowAlertDialog.getLatestAlertDialog()
+    protected fun `in alert dialog`(): AlertDialog {
+        val message = "The dialog wasn't created previously or you import an androidx version instead of android"
+
+        val alertDialog = ShadowAlertDialog.getLatestAlertDialog()
+        assertNull(message, alertDialog)
+        return alertDialog
+    }
 
     protected fun AlertDialog.`for dialog title`(): TextView = find("alertTitle", "android")
 

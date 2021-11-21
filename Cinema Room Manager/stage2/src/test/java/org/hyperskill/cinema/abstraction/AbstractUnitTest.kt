@@ -132,7 +132,6 @@ abstract class AbstractUnitTest<T : Activity>(
         val matcher: Matcher = Pattern.compile("([0-9.]*[0-9]+)").matcher(this)
         while (matcher.find()) {
             val scanned = matcher.group(1)?.toDoubleOrNull() ?: continue
-            println(scanned)
             if (abs(expected - scanned) < `with delta`) return true
         }
         return false
